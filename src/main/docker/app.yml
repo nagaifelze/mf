@@ -1,0 +1,19 @@
+version: '2'
+services:
+    mf-app:
+        image: mf
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://mf-mysql:3306/mf?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=mf-elasticsearch:9300
+        ports:
+            - 8080:8080
+    mf-mysql:
+        extends:
+            file: mysql.yml
+            service: mf-mysql
+    mf-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: mf-elasticsearch
